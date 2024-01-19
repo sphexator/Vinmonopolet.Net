@@ -1,4 +1,6 @@
-﻿using Vinmonopolet.Entities.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using Vinmonopolet.Entities.Constants;
+using Vinmonopolet.Entities.Interfaces;
 using Vinmonopolet.Entities.Requests;
 using Vinmonopolet.Entities.Results.MyProducts;
 
@@ -6,6 +8,14 @@ namespace Vinmonopolet.Entities.Clients;
 
 public sealed class MyProducts : IMyProductsClient
 {
+	private readonly HttpClient _httpClient;
+	private readonly ILogger<MyProducts> _logger;
+	public MyProducts(IHttpClientFactory httpClientFactory, ILogger<MyProducts> logger)
+	{
+		_httpClient = httpClientFactory.CreateClient(Constant.HttpClientName);
+		_logger = logger;
+	}
+	
 	public async Task<GetCodeListForAssortmentGradeResponse> GetCodeListForAssortmentGradeAsync(CancellationToken cancellationToken = default)
 		=> throw new NotImplementedException();
 

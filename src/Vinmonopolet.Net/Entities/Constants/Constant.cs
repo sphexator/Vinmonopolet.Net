@@ -3,9 +3,10 @@
 internal static class Constant
 {
 	public const string BaseUri = "https://apis.vinmonopolet.no/";
+	public const string HttpClientName = "Vinmonopolet";
 	private const string V0 = "v0/";
 	private const string V1 = "v1/";
-
+	
 	internal static class AuthUri
 	{
 		private const string ABaseUri = "auth/" + V0;

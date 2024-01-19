@@ -1,4 +1,6 @@
-﻿using Vinmonopolet.Entities.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using Vinmonopolet.Entities.Constants;
+using Vinmonopolet.Entities.Interfaces;
 using Vinmonopolet.Entities.Requests;
 using Vinmonopolet.Entities.Results;
 
@@ -6,6 +8,14 @@ namespace Vinmonopolet.Entities.Clients;
 
 public sealed class Auth : IAuthClient
 {
+	private readonly HttpClient _httpClient;
+	private readonly ILogger<Auth> _logger;
+	public Auth(IHttpClientFactory httpClientFactory, ILogger<Auth> logger)
+	{
+		_httpClient = httpClientFactory.CreateClient(Constant.HttpClientName);
+		_logger = logger;
+	}
+
 	/// <inheritdoc />
 	public async Task<UpdatePermission> UpdatePermissionByEmailAsync(string email, bool active, CancellationToken cancellationToken = default)
 		=> throw new NotImplementedException();

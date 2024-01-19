@@ -1,24 +1,16 @@
-﻿using Microsoft.Extensions.Logging;
-using Vinmonopolet.Entities.Interfaces;
+﻿using Vinmonopolet.Entities.Interfaces;
 
 namespace Vinmonopolet.Entities.Clients;
 
 public sealed class VinmonopoletClient : IClient
 {
-	private readonly VinmonopoletOptions _options;
-	private readonly HttpClient _httpClient;
-	private readonly ILogger<VinmonopoletClient> _logger;
-	
-	public VinmonopoletClient(VinmonopoletOptions options, ILogger<VinmonopoletClient> logger, HttpClient httpClient)
+	public VinmonopoletClient(IAuthClient auth, IMyProductsClient myProducts, 
+			IProductsClient products, IStoreClient stores)
 	{
-		_options = options;
-		_logger = logger;
-		_httpClient = httpClient;
-
-		Auth = new Auth();
-		MyProducts = new MyProducts();
-		Products = new Products();
-		Stores = new Stores();
+		Auth = auth;
+		MyProducts = myProducts;
+		Products = products;
+		Stores = stores;
 	}
 
 	public IAuthClient Auth { get; }

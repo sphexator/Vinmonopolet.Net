@@ -14,11 +14,16 @@ public static class ClientHostBuilder
 		var option = new VinmonopoletOptions();
 		options.Invoke(option);
 		builder.Services.Configure(options);
-		builder.Services.AddScoped<VinmonopoletClient>();
-		builder.Services.AddHttpClient<IClient, VinmonopoletClient>(client =>
+		builder.Services.AddScoped<IClient, VinmonopoletClient>();
+		builder.Services.AddScoped<IAuthClient, Auth>();
+		builder.Services.AddScoped<IMyProductsClient, MyProducts>();
+		builder.Services.AddScoped<IProductsClient, Products>();
+		builder.Services.AddScoped<IStoreClient, Stores>();
+		
+		builder.Services.AddHttpClient(Constant.HttpClientName,client =>
 		{
 			client.BaseAddress = new(Constant.BaseUri);
-			client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", option.ApiKey.TrimEnd(' ').TrimStart(' '));
+			client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", option.ApiKey);
 		});
 		return builder;
 	}
